@@ -1,14 +1,11 @@
-
 import './App.css'
-import OrderTracking from './Components/OrderTracking'
+import Home from './components/home/Home'
 
 function App() {
-
-
   return (
-    <>
-   hola mundo
-    </>
+    <div className="App">
+      <Home />
+    </div>
   )
 }
 
