@@ -18,6 +18,8 @@ const AppLayout = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [tableData, setTableData] = useState([]);
 
+
+
   useEffect(() => {
     const loadAll = async () => {
       try {
@@ -77,6 +79,9 @@ const AppLayout = () => {
     loadAll();
   }, []);
 
+ 
+
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
@@ -87,7 +92,7 @@ const AppLayout = () => {
         <h1 className="text-2xl font-bold text-gray-800">Mis Envios</h1>
 
         <Link
-          to="/app/shippings/create"
+          to="/cost"
           className="bg-[#da627d] hover:bg-red-700 text-white font-semibold py-2 px-4 rounded shadow transition duration-150"
         >
           + Cotizar envío
