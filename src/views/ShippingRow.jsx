@@ -1,7 +1,20 @@
+import { useState } from "react";
+import TrackingDetailModal from "./modal/TrackingDetailModal";
+
 function ShippingRow({ shipping }) {
   const address = shipping.delivery_address_json;
 
+  const [openModal, setOpenModal] = useState(false);
+const [selectedId, setSelectedId] = useState(null);
+
+const openTracking = (id) => {
+  setSelectedId(id);
+  setOpenModal(true);
+};
+
+
   return (
+
     <div className="grid grid-cols-4 gap-4 py-4 border-b border-b-gray-200 text-sm">
 
       {/* Order Details */}
@@ -35,12 +48,18 @@ function ShippingRow({ shipping }) {
       {/* Actions */}
       <div className="flex items-center justify-end">
         <button
+          onClick={() => openTracking(shipping.id)}
           className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded"
-          onClick={() => window.location.href = `/shipping/${shipping.id}`}
+          
         >
           Ver más
         </button>
       </div>
+<TrackingDetailModal
+  isOpen={openModal}
+  onClose={() => setOpenModal(false)}
+  id={selectedId}
+/>
 
     </div>
   );

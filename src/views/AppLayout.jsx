@@ -21,7 +21,7 @@ const AppLayout = () => {
   useEffect(() => {
     const loadAll = async () => {
       try {
-        // 1) LOGIN AUTOMÁTICO (para pruebas)
+        // 1) LOGIN AUTOMÁTICO
         const loginRes = await fetch(
           "https://api-logisticautn-1.onrender.com/api/auth/login",
           {
@@ -37,7 +37,10 @@ const AppLayout = () => {
         const loginJson = await loginRes.json();
         const token = loginJson.token;
 
-        // 2) Traer los envíos del usuario
+        // *** GUARDAR TOKEN EN LOCALSTORAGE ***
+        localStorage.setItem("authToken", token);
+
+        // 2) Traer envíos
         const shippingsRes = await fetch(
           "https://api-logisticautn-1.onrender.com/api/logistics/users/1/",
           {
@@ -50,7 +53,6 @@ const AppLayout = () => {
         const shippingsJson = await shippingsRes.json();
         const shippings = shippingsJson.data || [];
 
-        // Guardar data real en la tabla
         setTableData(shippings);
 
         // 3) Contar estados
@@ -59,7 +61,7 @@ const AppLayout = () => {
           counts[s.status] = (counts[s.status] || 0) + 1;
         });
 
-        // 4) Crear lista formateada para la sidebar
+        // 4) Lista formateada
         const formatted = Object.keys(statusTranslations).map((key) => ({
           label: statusTranslations[key],
           value: counts[key] || 0,
@@ -120,7 +122,7 @@ const AppLayout = () => {
             </div>
           </aside>
 
-          {/* Contenido principal */}
+          {/* Contenido */}
           <div className="w-full lg:w-2/3 p-6">
             <h1 className="text-3xl font-bold">Listado de Registros</h1>
 
@@ -136,4 +138,5 @@ const AppLayout = () => {
 };
 
 export default AppLayout;
+
 
